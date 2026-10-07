@@ -1,0 +1,9 @@
+# このファイルは「デモ公開用」のCloudflare設定です（静的ファイルのみ・データベースなし）。
+# 本番とは別の名前で公開するので、本番のデータには一切つながりません。
+# 公開は npm run deploy:demo で行います。
+
+name = "koudou-board-demo"
+compatibility_date = "2026-10-01"
+
+[assets]
+directory = "./public"

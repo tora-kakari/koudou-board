@@ -1,0 +1,27 @@
+# このファイルは「本番用」のCloudflare設定です（サーバー処理・静的ファイル・データベースの指定）。
+# ※合言葉（VIEW_PASSPHRASE / ADMIN_PASSPHRASE）は、このファイルには書きません（手元用は .dev.vars、本番はボタン導入の入力欄か `wrangler secret put`）。
+#   SESSION_SECRET は登録不要です（無ければアプリが自動で作ってデータベースに保存します）。手順は README を見てください。
+# database_id は仮の値です。ボタンで導入すると Cloudflare が自動で入れます。手動で導入するときは README「手動で導入する」の2で書き換えます。
+
+name = "koudou-board"
+main = "src/worker.js"
+compatibility_date = "2026-10-01"
+
+# 本番用の preview URL（バージョンごとの試し用アドレス）を作らない。公開先を本番のアドレス1つに絞るため
+preview_urls = false
+
+# 画面のファイル（public フォルダ）をそのまま配信する。/api/ だけは先にサーバー処理（worker.js）へ渡す
+[assets]
+directory = "./public"
+run_worker_first = ["/api/*"]
+
+# データベース（D1）
+[[d1_databases]]
+binding = "DB"
+database_name = "koudou-board"
+# ↓仮の値（自分の d1 create で出た ID に書き換える。ボタン導入では自動）
+database_id = "00000000-0000-0000-0000-000000000000"
+
+# 定時実行：毎日 世界標準時15:00（＝日本時間0:00）に、今日以外の日付の行を削除する（src/worker.js の scheduled）
+[triggers]
+crons = ["0 15 * * *"]
