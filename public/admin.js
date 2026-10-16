@@ -74,7 +74,8 @@ function rowHtml(m, i) {
 function showList() {
   app.innerHTML = `
     <header class="bar"><h1>名簿の管理</h1></header>
-    <p class="lead">人の削除はできません。辞めた方は「無効にする」を押してください（ボードと自分選択に出なくなります）。</p>
+    <p class="lead">名簿の入力が終わったら、このタブを閉じてください。</p>
+    <p class="lead">辞めた方は「無効にする」を押してください（ボードと自分選択に出なくなります）。</p>
     <section class="sec">
       <h2>追加</h2>
       <label class="lbl" for="new-name">名前</label>
@@ -83,7 +84,7 @@ function showList() {
     </section>
     <p id="msg" class="msg" role="alert"></p>
     <h2>名簿（表示順）</h2>
-    ${members.length === 0 ? '<p class="empty">名簿が空です。上から追加してください</p>' : ""}
+    <p id="empty-msg" class="empty"${members.length === 0 ? "" : " hidden"}>名簿が空です。上から追加してください</p>
     <ul class="admin-list">${members.map(rowHtml).join("")}</ul>`;
 }
 
@@ -97,6 +98,7 @@ function redrawList() {
     [...document.querySelectorAll(".admin-row")].map((row) => [row.dataset.id, row.querySelector(".admin-name").value])
   );
   document.querySelector(".admin-list").innerHTML = members.map(rowHtml).join("");
+  document.getElementById("empty-msg").hidden = members.length > 0; // 0人→1人のとき「名簿が空です」を消す
   for (const row of document.querySelectorAll(".admin-row")) {
     const typed = edits.get(row.dataset.id);
     if (typed !== undefined) row.querySelector(".admin-name").value = typed;
