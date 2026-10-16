@@ -16,6 +16,7 @@
 自分のパソコンに何も入れずに、ブラウザだけで導入できます。入力するのは**合言葉2つだけ**です。
 
 > ※このボタン導入の動作（定時削除の登録・表の自動作成・workers.dev の登録）は、動作確認中です。うまくいかなければ、下の「手動で導入する」を使ってください。
+> 同じ名前のデータベースが自分のアカウントにすでにある場合は、公開時に「already exists」のエラーが出ます。その場合は wrangler.toml の name と database_name を別の名前にしてください。
 
 1. **アカウントを2つ用意する**（どちらも無料）：[GitHub](https://github.com/signup)、[Cloudflare](https://dash.cloudflare.com/sign-up)。
 2. **下のボタンを押す**（GitHub と Cloudflare をつなぐ画面が出たら、案内どおりに許可します）。
@@ -85,9 +86,9 @@ npm run db:init
 手元で定時削除を試す：`npx wrangler dev --test-scheduled` で起動し、予定を1件保存。別の PowerShell で次を順に実行し、最後の SELECT が0件なら成功です。
 
 ```
-npx wrangler d1 execute koudou-board --local --command "UPDATE entries SET board_date='2026-01-01';"
+npx wrangler d1 execute koudou-board-app-db --local --command "UPDATE entries SET board_date='2026-01-01';"
 curl.exe "http://localhost:8787/cdn-cgi/handler/scheduled?cron=0+15+*+*+*"
-npx wrangler d1 execute koudou-board --local --command "SELECT member_id, board_date FROM entries;"
+npx wrangler d1 execute koudou-board-app-db --local --command "SELECT member_id, board_date FROM entries;"
 ```
 
 ## 2. 本番公開の手順
@@ -98,10 +99,10 @@ Cloudflare の無料アカウントを作り（<https://dash.cloudflare.com/sign
 **1. 本番のデータベースを作る**
 
 ```
-npx wrangler d1 create koudou-board
+npx wrangler d1 create koudou-board-app-db
 ```
 
-`database_id = "…"` と出ます（`wrangler.toml` のデータベース名は `koudou-board`。別の名前にしたときだけ、`wrangler.toml` の `database_name` も合わせます）。保管地域を指定したいときは `--location apac`（アジア太平洋）などを付けます。設定ファイルへの追記を聞かれたら、次の手順で自分で書き換えるので「いいえ」で構いません。
+`database_id = "…"` と出ます（`wrangler.toml` のデータベース名は `koudou-board-app-db`。別の名前にしたときだけ、`wrangler.toml` の `database_name` も合わせます）。保管地域を指定したいときは `--location apac`（アジア太平洋）などを付けます。設定ファイルへの追記を聞かれたら、次の手順で自分で書き換えるので「いいえ」で構いません。
 
 **2. wrangler.toml の database_id を書き換える**
 
@@ -126,7 +127,7 @@ npm run deploy
 
 先に `migrations/` の表の定義が本番のデータベースに適用され（`wrangler d1 migrations apply DB --remote`。表がすでにあっても壊れません）、そのあとで公開されます。
 
-最後に `https://koudou-board.（あなたの名前）.workers.dev` のようなアドレスが出ます。
+最後に `https://koudou-board-app.（あなたの名前）.workers.dev` のようなアドレスが出ます。
 （[wrangler.toml](wrangler.toml) の `preview_urls = false` は、バージョンごとの試し用アドレス（Preview URLs）を作らず、公開先を本番のアドレス1つに絞るための設定です。）
 
 **5. 名簿を入れる**
@@ -155,7 +156,7 @@ npx wrangler secret put VIEW_PASSPHRASE
 合言葉は変えずにログインだけ全員やり直しにしたいときは、自動で作られた値を消します（`SESSION_SECRET` を自分で登録している場合は、その値を変えます）：
 
 ```
-npx wrangler d1 execute koudou-board --remote --command "DELETE FROM settings WHERE key='SESSION_SECRET';"
+npx wrangler d1 execute koudou-board-app-db --remote --command "DELETE FROM settings WHERE key='SESSION_SECRET';"
 ```
 
 次のアクセスで新しい値が作られます。
@@ -200,19 +201,19 @@ https://koudou-board-demo.（あなたの名前）.workers.dev/demo
 現在の状態を見る SQL（手元は `--local`、本番は `--remote`）：
 
 ```
-npx wrangler d1 execute koudou-board --remote --command "SELECT m.name, e.board_date, e.am_status, e.pm_status, b.name AS 入力者 FROM entries e JOIN members m ON m.id = e.member_id LEFT JOIN members b ON b.id = e.entered_by;"
+npx wrangler d1 execute koudou-board-app-db --remote --command "SELECT m.name, e.board_date, e.am_status, e.pm_status, b.name AS 入力者 FROM entries e JOIN members m ON m.id = e.member_id LEFT JOIN members b ON b.id = e.entered_by;"
 ```
 
-データの保管地域の確認：Cloudflare の管理画面で「Storage & databases」→「D1」→ `koudou-board` を開くか、次を実行します。
+データの保管地域の確認：Cloudflare の管理画面で「Storage & databases」→「D1」→ `koudou-board-app-db` を開くか、次を実行します。
 
 ```
-npx wrangler d1 info koudou-board
+npx wrangler d1 info koudou-board-app-db
 ```
 
 手元で試した予定を全部消す（名簿は消えません）：
 
 ```
-npx wrangler d1 execute koudou-board --local --command "DELETE FROM entries;"
+npx wrangler d1 execute koudou-board-app-db --local --command "DELETE FROM entries;"
 ```
 
 ## 8. 実機チェックリスト

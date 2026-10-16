@@ -3,7 +3,7 @@
 #   SESSION_SECRET は登録不要です（無ければアプリが自動で作ってデータベースに保存します）。手順は README を見てください。
 # database_id は仮の値です。ボタンで導入すると Cloudflare が自動で入れます。手動で導入するときは README「手動で導入する」の2で書き換えます。
 
-name = "koudou-board"
+name = "koudou-board-app"
 main = "src/worker.js"
 compatibility_date = "2026-10-01"
 
@@ -18,7 +18,7 @@ run_worker_first = ["/api/*"]
 # データベース（D1）
 [[d1_databases]]
 binding = "DB"
-database_name = "koudou-board"
+database_name = "koudou-board-app-db"
 # ↓仮の値（自分の d1 create で出た ID に書き換える。ボタン導入では自動）
 database_id = "00000000-0000-0000-0000-000000000000"
 
