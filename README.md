@@ -17,6 +17,7 @@
 
 > ※このボタン導入の動作（定時削除の登録・表の自動作成・workers.dev の登録）は、動作確認中です。うまくいかなければ、下の「手動で導入する」を使ってください。
 > 同じ名前のデータベースが自分のアカウントにすでにある場合は、公開時に「already exists」のエラーが出ます。その場合は wrangler.toml の name と database_name を別の名前にしてください。
+> 公開後に「No URLs enabled」と表示されたら、Workers & Pages → 該当のWorker → Domains タブで、Production の行のスイッチをオンにしてください。
 
 1. **アカウントを2つ用意する**（どちらも無料）：[GitHub](https://github.com/signup)、[Cloudflare](https://dash.cloudflare.com/sign-up)。
 2. **下のボタンを押す**（GitHub と Cloudflare をつなぐ画面が出たら、案内どおりに許可します）。

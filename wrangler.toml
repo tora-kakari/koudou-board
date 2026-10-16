@@ -10,6 +10,9 @@ compatibility_date = "2026-10-01"
 # 本番用の preview URL（バージョンごとの試し用アドレス）を作らない。公開先を本番のアドレス1つに絞るため
 preview_urls = false
 
+# 公開直後から workers.dev のアドレスを有効にする
+workers_dev = true
+
 # 画面のファイル（public フォルダ）をそのまま配信する。/api/ だけは先にサーバー処理（worker.js）へ渡す
 [assets]
 directory = "./public"
