@@ -20,7 +20,7 @@
 1. **アカウントを2つ用意する**（どちらも無料）：[GitHub](https://github.com/signup)、[Cloudflare](https://dash.cloudflare.com/sign-up)。
 2. **下のボタンを押す**（GitHub と Cloudflare をつなぐ画面が出たら、案内どおりに許可します）。
 
-   [![Deploy to Cloudflare](https://deploy.workers.cloudflare.com/button)](https://deploy.workers.cloudflare.com/?url=https://github.com/（GitHubのアドレスが決まったらここを書き換える）)
+   [![Deploy to Cloudflare](https://deploy.workers.cloudflare.com/button)](https://deploy.workers.cloudflare.com/?url=https://github.com/tora-kakari/koudou-board)
 
 3. **入力欄は2つだけ**です。
    - `VIEW_PASSPHRASE`：チーム全員で使う合言葉（12文字以上）
