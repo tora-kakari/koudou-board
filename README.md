@@ -23,6 +23,9 @@
 
    [![Deploy to Cloudflare](https://deploy.workers.cloudflare.com/button)](https://deploy.workers.cloudflare.com/?url=https://github.com/tora-kakari/koudou-board)
 
+   ※ Cloudflare の画面の表示がおかしい、入力欄が出ないときは、ブラウザの自動翻訳（Chrome のアドレス欄の右にある翻訳アイコン）をオフにして、画面を再読み込みしてください。
+   ※ GitHub の許可画面で、リポジトリへのアクセスを『Only select repositories（選んだものだけ）』にすると、導入の途中で止まることがありました。『All repositories（すべてのリポジトリ）』を選ぶと進めました（作者の環境で確認）。導入が終わったら、GitHub の Settings → Applications で、Cloudflare の連携を『Only select repositories』に戻すか、連携を外して構いません。
+
 3. **入力欄は2つだけ**です。
    - `VIEW_PASSPHRASE`：チーム全員で使う合言葉（12文字以上）
    - `ADMIN_PASSPHRASE`：管理者だけの合言葉（12文字以上・上とは別の言葉）
