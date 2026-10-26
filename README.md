@@ -24,7 +24,7 @@
    [![Deploy to Cloudflare](https://deploy.workers.cloudflare.com/button)](https://deploy.workers.cloudflare.com/?url=https://github.com/tora-kakari/koudou-board)
 
    ※ Cloudflare の画面の表示がおかしい、入力欄が出ないときは、ブラウザの自動翻訳（Chrome のアドレス欄の右にある翻訳アイコン）をオフにして、画面を再読み込みしてください。
-   ※ GitHub の許可画面で、リポジトリへのアクセスを『Only select repositories（選んだものだけ）』にすると、導入の途中で止まることがありました。『All repositories（すべてのリポジトリ）』を選ぶと進めました（作者の環境で確認）。導入が終わったら、GitHub の Settings → Applications で、Cloudflare の連携を『Only select repositories』に戻すか、連携を外して構いません。
+   ※ GitHub の許可画面で、リポジトリへのアクセスを『Only select repositories（選んだものだけ）』にすると、導入の途中で止まることがありました。『All repositories（すべてのリポジトリ）』を選ぶと進めました（作者の環境で確認）。導入が終わったら、GitHub の Settings → Applications → Installed GitHub Apps を開き、Cloudflare と書かれたアプリの『Configure』を押して、『Only select repositories』に切り替え、コピーしたリポジトリだけを選んでください（おすすめ）。『All repositories』のままだと、Cloudflare のアプリが自分の全リポジトリに触れる状態が続くためです。
 
 3. **連携が済んだら、もう一度このボタンを押します。** 出てくる画面で、次のように分かれます。
    - 設定画面（Git account を選ぶ画面）が出ているとき：そのまま手順4へ進みます。
